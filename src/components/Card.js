@@ -39,23 +39,31 @@ function Card() {
         fetchImages();
     }, [])
 
+    const handleDelete = (id) => {
+        setimages(images.filter((image) => image.id !== id))
+    }
+
 
 
     return (
         <div>
-            <div className='gallery-card'>
-                {
-                    images.map((image) => (
-                        <div className='image-card' key={image.id}>
-                            <img src={image.url} />
-                            <div className='image-details'>
-                                <h3>{image.title}</h3>
-                                <button>Delete</button>
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
+            {
+                (images.length > 0) ?
+                    (<div className='gallery-card'>
+                        {
+                            images.map((image) => (
+                                <div className='image-card' key={image.id}>
+                                    <img src={image.url} />
+                                    <div className='image-details'>
+                                        <h3>{image.title}</h3>
+                                        <button onClick={() => handleDelete(image.id)}>Delete</button>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>):
+                <p>No image found!</p>
+            }
         </div>
     )
 }
